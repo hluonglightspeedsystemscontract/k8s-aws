@@ -13,13 +13,26 @@ class Fib extends Component {
     this.fetchIndexes();
   }
 
+
   async fetchValues() {
+    const httpClient = axios.create({
+      baseURL: 'http://nginx:80'
+    });
+
+    // const values = await httpClient.get('/api/values/current');
     const values = await axios.get('/api/values/current');
+
     this.setState({ values: values.data });
   }
 
   async fetchIndexes() {
+    const httpClient = axios.create({
+      baseURL: 'http://nginx:80'
+    });
+ 
+    // const seenIndexes = await httpClient.get('/api/values/all');
     const seenIndexes = await axios.get('/api/values/all');
+
     this.setState({
       seenIndexes: seenIndexes.data
     });
@@ -27,7 +40,13 @@ class Fib extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-
+    const httpClient = axios.create({
+      baseURL: 'http://nginx:80'
+    });
+  
+    // await httpClient.post('/api/values', {
+    //   index: this.state.index
+    // });
     await axios.post('/api/values', {
       index: this.state.index
     });
